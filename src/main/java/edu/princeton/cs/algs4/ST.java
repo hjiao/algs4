@@ -2,7 +2,7 @@
  *  Compilation:  javac ST.java
  *  Execution:    java ST < input.txt
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/35applications/tinyST.txt
+ *  Data files:   https://algs4.cs.princeton.edu/35applications/tinyST.txt
  *  
  *  Sorted symbol table implementation using a java.util.TreeMap.
  *  Does not allow duplicates.
@@ -41,7 +41,7 @@ import java.util.TreeMap;
  *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
  *  Construction takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -68,10 +68,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @param  key the key
      * @return the value associated with the given key if the key is in this symbol table;
      *         {@code null} if the key is not in this symbol table
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new NullPointerException("called get() with null key");
+        if (key == null) throw new IllegalArgumentException("calls get() with null key");
         return st.get(key);
     }
 
@@ -83,10 +83,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      *
      * @param  key the key
      * @param  val the value
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new NullPointerException("called put() with null key");
+        if (key == null) throw new IllegalArgumentException("calls put() with null key");
         if (val == null) st.remove(key);
         else             st.put(key, val);
     }
@@ -96,10 +96,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * (if the key is in this symbol table).
      *
      * @param  key the key
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new NullPointerException("called delete() with null key");
+        if (key == null) throw new IllegalArgumentException("calls delete() with null key");
         st.remove(key);
     }
 
@@ -109,10 +109,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @param  key the key
      * @return {@code true} if this symbol table contains {@code key} and
      *         {@code false} otherwise
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new NullPointerException("called contains() with null key");
+        if (key == null) throw new IllegalArgumentException("calls contains() with null key");
         return st.containsKey(key);
     }
 
@@ -169,7 +169,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws NoSuchElementException if this symbol table is empty
      */
     public Key min() {
-        if (isEmpty()) throw new NoSuchElementException("called min() with empty symbol table");
+        if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
         return st.firstKey();
     }
 
@@ -180,7 +180,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws NoSuchElementException if this symbol table is empty
      */
     public Key max() {
-        if (isEmpty()) throw new NoSuchElementException("called max() with empty symbol table");
+        if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
         return st.lastKey();
     }
 
@@ -190,10 +190,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @param  key the key
      * @return the smallest key in this symbol table greater than or equal to {@code key}
      * @throws NoSuchElementException if there is no such key
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new NullPointerException("called ceiling() with null key");
+        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
         Key k = st.ceilingKey(key);
         if (k == null) throw new NoSuchElementException("all keys are less than " + key);
         return k;
@@ -205,10 +205,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @param  key the key
      * @return the largest key in this symbol table less than or equal to {@code key}
      * @throws NoSuchElementException if there is no such key
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new NullPointerException("called floor() with null key");
+        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
         Key k = st.floorKey(key);
         if (k == null) throw new NoSuchElementException("all keys are greater than " + key);
         return k;
@@ -231,7 +231,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

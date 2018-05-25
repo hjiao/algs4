@@ -21,13 +21,13 @@ package edu.princeton.cs.algs4;
  *  of edges <em>E</em>. Parallel edges and self-loops are permitted.
  *  <p>
  *  This implementation uses an adjacency-lists representation, which 
- *  is a vertex-indexed array of @link{Bag} objects.
+ *  is a vertex-indexed array of {@link Bag} objects.
  *  All operations take constant time (in the worst case) except
  *  iterating over the edges incident to a given vertex, which takes
  *  time proportional to the number of such edges.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -43,7 +43,7 @@ public class FlowNetwork {
     /**
      * Initializes an empty flow network with {@code V} vertices and 0 edges.
      * @param V the number of vertices
-     * @throws java.lang.IllegalArgumentException if {@code V < 0}
+     * @throws IllegalArgumentException if {@code V < 0}
      */
     public FlowNetwork(int V) {
         if (V < 0) throw new IllegalArgumentException("Number of vertices in a Graph must be nonnegative");
@@ -59,8 +59,8 @@ public class FlowNetwork {
      * The capacities are integers between 0 and 99 and the flow values are zero.
      * @param V the number of vertices
      * @param E the number of edges
-     * @throws java.lang.IllegalArgumentException if {@code V < 0}
-     * @throws java.lang.IllegalArgumentException if {@code E < 0}
+     * @throws IllegalArgumentException if {@code V < 0}
+     * @throws IllegalArgumentException if {@code E < 0}
      */
     public FlowNetwork(int V, int E) {
         this(V);
@@ -80,18 +80,18 @@ public class FlowNetwork {
      * followed by <em>E</em> pairs of vertices and edge capacities,
      * with each entry separated by whitespace.
      * @param in the input stream
-     * @throws java.lang.IndexOutOfBoundsException if the endpoints of any edge are not in prescribed range
-     * @throws java.lang.IllegalArgumentException if the number of vertices or edges is negative
+     * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
+     * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public FlowNetwork(In in) {
         this(in.readInt());
         int E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
+        if (E < 0) throw new IllegalArgumentException("number of edges must be nonnegative");
         for (int i = 0; i < E; i++) {
             int v = in.readInt();
             int w = in.readInt();
-            if (v < 0 || v >= V) throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
-            if (w < 0 || w >= V) throw new IndexOutOfBoundsException("vertex " + w + " is not between 0 and " + (V-1));
+            validateVertex(v);
+            validateVertex(w);
             double capacity = in.readDouble();
             addEdge(new FlowEdge(v, w, capacity));
         }
@@ -114,16 +114,16 @@ public class FlowNetwork {
         return E;
     }
 
-    // throw an IndexOutOfBoundsException unless {@code 0 <= v < V}
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         if (v < 0 || v >= V)
-            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**
      * Adds the edge {@code e} to the network.
      * @param e the edge
-     * @throws java.lang.IndexOutOfBoundsException unless endpoints of edge are between
+     * @throws IllegalArgumentException unless endpoints of edge are between
      *         {@code 0} and {@code V-1}
      */
     public void addEdge(FlowEdge e) {
@@ -141,7 +141,7 @@ public class FlowNetwork {
      * and from {@code v}).
      * @param v the vertex
      * @return the edges incident on vertex {@code v} as an Iterable
-     * @throws java.lang.IndexOutOfBoundsException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<FlowEdge> adj(int v) {
         validateVertex(v);
@@ -193,7 +193,7 @@ public class FlowNetwork {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

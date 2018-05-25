@@ -4,12 +4,12 @@
  *  Dependencies: ThreeSum.java Stopwatch.java StdRandom.java StdOut.java
  *
  *  % java DoublingTest 
- *      250   0.0
- *      500   0.0
- *     1000   0.1
- *     2000   0.6
- *     4000   4.5
- *     8000  35.7
+ *      250     0.0
+ *      500     0.0
+ *     1000     0.1
+ *     2000     0.6
+ *     4000     4.5
+ *     8000    35.7
  *  ...
  *
  ******************************************************************************/
@@ -20,7 +20,7 @@ package edu.princeton.cs.algs4;
  *  The {@code DoublingTest} class provides a client for measuring
  *  the running time of a method using a doubling test.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -58,13 +58,13 @@ public class DoublingTest {
     public static void main(String[] args) { 
         for (int n = 250; true; n += n) {
             double time = timeTrial(n);
-            StdOut.printf("%7d %5.1f\n", n, time);
+            StdOut.printf("%7d %7.1f\n", n, time);
         } 
     } 
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

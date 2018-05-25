@@ -1,10 +1,10 @@
 /******************************************************************************
- *  Compilation:  javac Topoological.java
+ *  Compilation:  javac Topological.java
  *  Execution:    java  Topological filename.txt delimiter
  *  Dependencies: Digraph.java DepthFirstOrder.java DirectedCycle.java
  *                EdgeWeightedDigraph.java EdgeWeightedDirectedCycle.java
  *                SymbolDigraph.java
- *  Data files:   http://algs4.cs.princeton.edu/42digraph/jobs.txt
+ *  Data files:   https://algs4.cs.princeton.edu/42digraph/jobs.txt
  *
  *  Compute topological ordering of a DAG or edge-weighted DAG.
  *  Runs in O(E + V) time.
@@ -13,17 +13,16 @@
  *  Calculus
  *  Linear Algebra
  *  Introduction to CS
- *  Programming Systems
+ *  Advanced Programming
  *  Algorithms
  *  Theoretical CS
  *  Artificial Intelligence
+ *  Robotics
  *  Machine Learning
  *  Neural Networks
- *  Robotics
+ *  Databases
  *  Scientific Computing
  *  Computational Biology
- *  Databases
- *
  *
  ******************************************************************************/
 
@@ -51,7 +50,7 @@ package edu.princeton.cs.algs4;
  *  to compute a topological order of a DAG.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -59,7 +58,7 @@ package edu.princeton.cs.algs4;
  */
 public class Topological {
     private Iterable<Integer> order;  // topological order
-    private int[] rank;               // rank[v] = position of vertex v in topological order
+    private int[] rank;               // rank[v] = rank of vertex v in order
 
     /**
      * Determines whether the digraph {@code G} has a topological order and, if so,
@@ -112,13 +111,24 @@ public class Topological {
     }
 
     /**
+     * Does the digraph have a topological order?
+     * @return {@code true} if the digraph has a topological order (or equivalently,
+     *    if the digraph is a DAG), and {@code false} otherwise
+     * @deprecated Replaced by {@link #hasOrder()}.
+     */
+    @Deprecated
+    public boolean isDAG() {
+        return hasOrder();
+    }
+
+    /**
      * The the rank of vertex {@code v} in the topological order;
      * -1 if the digraph is not a DAG
      *
      * @param v the vertex
      * @return the position of vertex {@code v} in a topological order
      *    of the digraph; -1 if the digraph is not a DAG
-     * @throws IndexOutOfBoundsException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int rank(int v) {
         validateVertex(v);
@@ -126,11 +136,11 @@ public class Topological {
         else            return -1;
     }
 
-    // throw an IndexOutOfBoundsException unless {@code 0 <= v < V}
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = rank.length;
         if (v < 0 || v >= V)
-            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**
@@ -151,7 +161,7 @@ public class Topological {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

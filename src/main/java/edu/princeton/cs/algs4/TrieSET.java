@@ -2,7 +2,7 @@
  *  Compilation:  javac TrieSET.java
  *  Execution:    java TrieSET < words.txt
  *  Dependencies: StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/52trie/shellsST.txt
+ *  Data files:   https://algs4.cs.princeton.edu/52trie/shellsST.txt
  *
  *  An set for extended ASCII strings, implemented  using a 256-way trie.
  *
@@ -30,7 +30,7 @@ import java.util.Iterator;
  *  of the key (in the worst case). Construction takes constant time.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
+ *  <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms in Java, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -59,9 +59,10 @@ public class TrieSET implements Iterable<String> {
      * @param key the key
      * @return {@code true} if the set contains {@code key} and
      *     {@code false} otherwise
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(String key) {
+        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
         Node x = get(root, key, 0);
         if (x == null) return false;
         return x.isString;
@@ -77,9 +78,10 @@ public class TrieSET implements Iterable<String> {
     /**
      * Adds the key to the set if it is not already present.
      * @param key the key to add
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void add(String key) {
+        if (key == null) throw new IllegalArgumentException("argument to add() is null");
         root = add(root, key, 0);
     }
 
@@ -187,9 +189,10 @@ public class TrieSET implements Iterable<String> {
      * @param query the query string
      * @return the string in the set that is the longest prefix of {@code query},
      *     or {@code null} if no such string
-     * @throws NullPointerException if {@code query} is {@code null}
+     * @throws IllegalArgumentException if {@code query} is {@code null}
      */
     public String longestPrefixOf(String query) {
+        if (query == null) throw new IllegalArgumentException("argument to longestPrefixOf() is null");
         int length = longestPrefixOf(root, query, 0, -1);
         if (length == -1) return null;
         return query.substring(0, length);
@@ -210,9 +213,10 @@ public class TrieSET implements Iterable<String> {
     /**
      * Removes the key from the set if the key is present.
      * @param key the key
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(String key) {
+        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
         root = delete(root, key, 0);
     }
 
@@ -282,7 +286,7 @@ public class TrieSET implements Iterable<String> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

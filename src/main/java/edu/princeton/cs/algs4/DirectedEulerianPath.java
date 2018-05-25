@@ -29,7 +29,7 @@ import java.util.Iterator;
  *  {@link EulerianCycle} and {@link EulerianPath}.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  * 
  * @author Robert Sedgewick
@@ -134,8 +134,7 @@ public class DirectedEulerianPath {
     //      (and one vertex v may have indegree(v) = outdegree(v) + 1)
     //    - the graph is connected, when viewed as an undirected graph
     //      (ignoring isolated vertices)
-    // This method is solely for unit testing.
-    private static boolean hasEulerianPath(Digraph G) {
+    private static boolean satisfiesNecessaryAndSufficientConditions(Digraph G) {
         if (G.E() == 0) return true;
 
         // Condition 1: indegree(v) == outdegree(v) for every vertex,
@@ -169,7 +168,7 @@ public class DirectedEulerianPath {
         if (hasEulerianPath() == (path() == null)) return false;
 
         // hashEulerianPath() returns correct value
-        if (hasEulerianPath() != hasEulerianPath(G)) return false;
+        if (hasEulerianPath() != satisfiesNecessaryAndSufficientConditions(G)) return false;
 
         // nothing else to check if no Eulerian path
         if (path == null) return true;
@@ -254,7 +253,7 @@ public class DirectedEulerianPath {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -30,7 +30,7 @@ package edu.princeton.cs.algs4;
  *  digraph is acyclic.
  *  <p>
  *  For additional documentation,   
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of   
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of   
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -55,7 +55,7 @@ public class EdgeWeightedDirectedCycle {
             if (!marked[v]) dfs(G, v);
 
         // check that digraph has a cycle
-        assert check(G);
+        assert check();
     }
 
     // check that algorithm computes either the topological order or finds a directed cycle
@@ -113,7 +113,7 @@ public class EdgeWeightedDirectedCycle {
 
 
     // certify that digraph is either acyclic or has a directed cycle
-    private boolean check(EdgeWeightedDigraph G) {
+    private boolean check() {
 
         // edge-weighted digraph is cyclic
         if (hasCycle()) {
@@ -195,7 +195,7 @@ public class EdgeWeightedDirectedCycle {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

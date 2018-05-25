@@ -25,13 +25,14 @@ package edu.princeton.cs.algs4;
  *  instance.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
+ *  <a href="https://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
 public class AssignmentProblem {
+    private static final double FLOATING_POINT_EPSILON = 1E-14;
     private static final int UNMATCHED = -1;
 
     private int n;              // number of rows and columns
@@ -47,13 +48,17 @@ public class AssignmentProblem {
      *
      * @param  weight the <em>n</em>-by-<em>n</em> matrix of weights
      * @throws IllegalArgumentException unless all weights are nonnegative
-     * @throws NullPointerException if {@code weight} is {@code null}
+     * @throws IllegalArgumentException if {@code weight} is {@code null}
      */ 
     public AssignmentProblem(double[][] weight) {
+        if (weight == null) throw new IllegalArgumentException("constructor argument is null");
+
         n = weight.length;
         this.weight = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                if (Double.isNaN(weight[i][j]))
+                    throw new IllegalArgumentException("weight " + i + "-" + j  + " is NaN");
                 if (weight[i][j] < minWeight) minWeight = weight[i][j];
                 this.weight[i][j] = weight[i][j];
             }
@@ -123,7 +128,14 @@ public class AssignmentProblem {
     // reduced cost of i-j
     // (subtracting off minWeight reweights all weights to be non-negative)
     private double reducedCost(int i, int j) {
-        return (weight[i][j] - minWeight) + px[i] - py[j];
+        double reducedCost = (weight[i][j] - minWeight) + px[i] - py[j];
+
+        // to avoid issues with floating-point precision
+        double magnitude = Math.abs(weight[i][j]) + Math.abs(px[i]) + Math.abs(py[j]);
+        if (Math.abs(reducedCost) <= FLOATING_POINT_EPSILON * magnitude) return 0.0;
+
+        assert reducedCost >= 0.0;
+        return reducedCost;
     }
 
     /**
@@ -131,7 +143,7 @@ public class AssignmentProblem {
      *
      * @param  i the row index
      * @return the dual optimal value for row {@code i}
-     * @throws IndexOutOfBoundsException unless {@code 0 <= i < n}
+     * @throws IllegalArgumentException unless {@code 0 <= i < n}
      *
      */
     // dual variable for row i
@@ -145,7 +157,7 @@ public class AssignmentProblem {
      *
      * @param  j the column index
      * @return the dual optimal value for column {@code j}
-     * @throws IndexOutOfBoundsException unless {@code 0 <= j < n}
+     * @throws IllegalArgumentException unless {@code 0 <= j < n}
      *
      */
     public double dualCol(int j) {
@@ -158,7 +170,7 @@ public class AssignmentProblem {
      *
      * @param  i the row index
      * @return the column matched to row {@code i} in the optimal solution
-     * @throws IndexOutOfBoundsException unless {@code 0 <= i < n}
+     * @throws IllegalArgumentException unless {@code 0 <= i < n}
      *
      */
     public int sol(int i) {
@@ -182,7 +194,7 @@ public class AssignmentProblem {
     }
 
     private void validate(int i) {
-        if (i < 0 || i >= n) throw new IndexOutOfBoundsException();
+        if (i < 0 || i >= n) throw new IllegalArgumentException("index is not between 0 and " + (n-1) + ": " + i);
     }
 
 
@@ -294,7 +306,7 @@ public class AssignmentProblem {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

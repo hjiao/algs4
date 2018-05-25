@@ -2,7 +2,7 @@
  *  Compilation:  javac AcyclicSP.java
  *  Execution:    java AcyclicSP V E
  *  Dependencies: EdgeWeightedDigraph.java DirectedEdge.java Topological.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/tinyEWDAG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/tinyEWDAG.txt
  *
  *  Computes shortest paths in an edge-weighted acyclic digraph.
  *
@@ -28,12 +28,12 @@ package edu.princeton.cs.algs4;
  *  This implementation uses a topological-sort based algorithm.
  *  The constructor takes time proportional to <em>V</em> + <em>E</em>,
  *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code distTo()} and {@code hasPathTo()} methods take
- *  constant time and the {@code pathTo()} method takes time proportional to the
- *  number of edges in the shortest path returned.
+ *  Each call to {@code distTo(int)} and {@code hasPathTo(int)} takes constant time;
+ *  each call to {@code pathTo(int)} takes time proportional to the number of
+ *  edges in the shortest path returned.
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -55,11 +55,14 @@ public class AcyclicSP {
     public AcyclicSP(EdgeWeightedDigraph G, int s) {
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
+
+        validateVertex(s);
+
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
         distTo[s] = 0.0;
 
-        // visit vertices in toplogical order
+        // visit vertices in topological order
         Topological topological = new Topological(G);
         if (!topological.hasOrder())
             throw new IllegalArgumentException("Digraph is not acyclic.");
@@ -80,31 +83,37 @@ public class AcyclicSP {
 
     /**
      * Returns the length of a shortest path from the source vertex {@code s} to vertex {@code v}.
-     * @param v the destination vertex
+     * @param  v the destination vertex
      * @return the length of a shortest path from the source vertex {@code s} to vertex {@code v};
-     *    {@code Double.POSITIVE_INFINITY} if no such path
+     *         {@code Double.POSITIVE_INFINITY} if no such path
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public double distTo(int v) {
+        validateVertex(v);
         return distTo[v];
     }
 
     /**
      * Is there a path from the source vertex {@code s} to vertex {@code v}?
-     * @param v the destination vertex
+     * @param  v the destination vertex
      * @return {@code true} if there is a path from the source vertex
-     *    {@code s} to vertex {@code v}, and {@code false} otherwise
+     *         {@code s} to vertex {@code v}, and {@code false} otherwise
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public boolean hasPathTo(int v) {
+        validateVertex(v);
         return distTo[v] < Double.POSITIVE_INFINITY;
     }
 
     /**
      * Returns a shortest path from the source vertex {@code s} to vertex {@code v}.
-     * @param v the destination vertex
+     * @param  v the destination vertex
      * @return a shortest path from the source vertex {@code s} to vertex {@code v}
-     *    as an iterable of edges, and {@code null} if no such path
+     *         as an iterable of edges, and {@code null} if no such path
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> pathTo(int v) {
+        validateVertex(v);
         if (!hasPathTo(v)) return null;
         Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
@@ -113,6 +122,12 @@ public class AcyclicSP {
         return path;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = distTo.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
 
     /**
      * Unit tests the {@code AcyclicSP} data type.
@@ -142,7 +157,7 @@ public class AcyclicSP {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

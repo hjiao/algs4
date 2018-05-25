@@ -2,8 +2,8 @@
  *  Compilation:  javac FarthestPair.java
  *  Execution:    java FarthestPair < input.txt
  *  Dependencies: GrahamScan.java Point2D.java
- *  Data files:   http://algs4.cs.princeton.edu/99hull/rs1423.txt
- *                http://algs4.cs.princeton.edu/99hull/kw1260.txt
+ *  Data files:   https://algs4.cs.princeton.edu/99hull/rs1423.txt
+ *                https://algs4.cs.princeton.edu/99hull/kw1260.txt
  *  
  *  Given a set of n points in the plane, find the farthest pair
  *  (equivalently, compute the diameter of the set of points).
@@ -32,7 +32,7 @@ package edu.princeton.cs.algs4;
  *  O(<em>N</em>) extra space.
  *  See also {@link ClosestPair} and {@link GrahamScan}.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/99hull">Section 9.9</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/99hull">Section 9.9</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -48,10 +48,15 @@ public class FarthestPair {
      * Computes the farthest pair of points in the specified array of points.
      *
      * @param  points the array of points
-     * @throws NullPointerException if {@code points} is {@code null} or if any
+     * @throws IllegalArgumentException if {@code points} is {@code null} or if any
      *         entry in {@code points[]} is {@code null}
      */
     public FarthestPair(Point2D[] points) {
+        if (points == null) throw new IllegalArgumentException("constructor argument is null");
+        for (int i = 0; i < points.length; i++) {
+            if (points[i] == null) throw new IllegalArgumentException("array element " + i + " is null");
+        }
+
         GrahamScan graham = new GrahamScan(points);
 
         // single point
@@ -164,7 +169,7 @@ public class FarthestPair {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -39,9 +39,8 @@ import java.util.TreeSet;
  *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
  *  Construction takes constant time.
  *  <p>
- *  This implementation uses a balanced binary search tree. It requires that
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ *  <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
  *  <i>Algorithms in Java, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -73,10 +72,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * Adds the key to this set (if it is not already present).
      *
      * @param  key the key to add
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void add(Key key) {
-        if (key == null) throw new NullPointerException("called add() with a null key");
+        if (key == null) throw new IllegalArgumentException("called add() with a null key");
         set.add(key);
     }
 
@@ -87,10 +86,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * @param  key the key
      * @return {@code true} if this set contains {@code key};
      *         {@code false} otherwise
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new NullPointerException("called contains() with a null key");
+        if (key == null) throw new IllegalArgumentException("called contains() with a null key");
         return set.contains(key);
     }
 
@@ -98,10 +97,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * Removes the specified key from this set (if the set contains the specified key).
      *
      * @param  key the key
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new NullPointerException("called delete() with a null key");
+        if (key == null) throw new IllegalArgumentException("called delete() with a null key");
         set.remove(key);
     }
 
@@ -163,11 +162,11 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      *
      * @param  key the key
      * @return the smallest key in this set greater than or equal to {@code key}
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      * @throws NoSuchElementException if there is no such key
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new NullPointerException("called ceiling() with a null key");
+        if (key == null) throw new IllegalArgumentException("called ceiling() with a null key");
         Key k = set.ceiling(key);
         if (k == null) throw new NoSuchElementException("all keys are less than " + key);
         return k;
@@ -178,11 +177,11 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      *
      * @param  key the key
      * @return the largest key in this set table less than or equal to {@code key}
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      * @throws NoSuchElementException if there is no such key
      */
     public Key floor(Key key) {
-        if (key == null) throw new NullPointerException("called floor() with a null key");
+        if (key == null) throw new IllegalArgumentException("called floor() with a null key");
         Key k = set.floor(key);
         if (k == null) throw new NoSuchElementException("all keys are greater than " + key);
         return k;
@@ -193,10 +192,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      *
      * @param  that the other set
      * @return the union of this set and that set
-     * @throws NullPointerException if {@code that} is {@code null}
+     * @throws IllegalArgumentException if {@code that} is {@code null}
      */
     public SET<Key> union(SET<Key> that) {
-        if (that == null) throw new NullPointerException("called union() with a null argument");
+        if (that == null) throw new IllegalArgumentException("called union() with a null argument");
         SET<Key> c = new SET<Key>();
         for (Key x : this) {
             c.add(x);
@@ -212,10 +211,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      *
      * @param  that the other set
      * @return the intersection of this set and that set
-     * @throws NullPointerException if {@code that} is {@code null}
+     * @throws IllegalArgumentException if {@code that} is {@code null}
      */
     public SET<Key> intersects(SET<Key> that) {
-        if (that == null) throw new NullPointerException("called intersects() with a null argument");
+        if (that == null) throw new IllegalArgumentException("called intersects() with a null argument");
         SET<Key> c = new SET<Key>();
         if (this.size() < that.size()) {
             for (Key x : this) {
@@ -265,15 +264,13 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Returns a string representation of this set.
      *
-     * @return a string representation of this set, with the keys separated
-     *         by single spaces
+     * @return a string representation of this set, enclosed in curly braces,
+     *         with adjacent keys separated by a comma and a space
      */
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (Key key : this)
-            s.append(key + " ");
-        return s.toString();
+        String s = set.toString();
+        return "{ " + s.substring(1, s.length() - 1) + " }";
     }
 
     /**
@@ -283,6 +280,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      */
     public static void main(String[] args) {
         SET<String> set = new SET<String>();
+        StdOut.println("set = " + set);
 
         // insert some keys
         set.add("www.cs.princeton.edu");
@@ -318,6 +316,8 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
         StdOut.println("floor(www.simpsont.com)   = " + set.floor("www.simpsont.com"));
         StdOut.println();
 
+        StdOut.println("set = " + set);
+        StdOut.println();
 
         // print out all keys in this set in lexicographic order
         for (String s : set) {
@@ -332,7 +332,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

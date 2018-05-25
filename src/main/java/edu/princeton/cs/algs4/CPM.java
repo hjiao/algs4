@@ -2,7 +2,7 @@
  *  Compilation:  javac CPM.java
  *  Execution:    java CPM < input.txt
  *  Dependencies: EdgeWeightedDigraph.java AcyclicDigraphLP.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/jobsPC.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/jobsPC.txt
  *
  *  Critical path method.
  *
@@ -42,7 +42,7 @@ package edu.princeton.cs.algs4;
  *  number of precedence constraints.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -99,7 +99,7 @@ public class CPM {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

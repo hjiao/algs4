@@ -48,7 +48,7 @@ package edu.princeton.cs.algs4;
  *  where <em>n</em> is the number of characters in the text.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/54regexp">Section 5.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/54regexp">Section 5.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -58,7 +58,7 @@ public class NFA {
 
     private Digraph graph;     // digraph of epsilon transitions
     private String regexp;     // regular expression
-    private int m;             // number of characters in regular expression
+    private final int m;       // number of characters in regular expression
 
     /**
      * Initializes the NFA from the specified regular expression.
@@ -154,7 +154,7 @@ public class NFA {
 } 
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

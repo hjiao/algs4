@@ -2,9 +2,9 @@
  *  Compilation:  javac GabowSCC.java
  *  Execution:    java GabowSCC V E
  *  Dependencies: Digraph.java Stack.java TransitiveClosure.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/42digraph/tinyDG.txt
- *                http://algs4.cs.princeton.edu/42digraph/mediumDG.txt
- *                http://algs4.cs.princeton.edu/42digraph/largeDG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/42digraph/tinyDG.txt
+ *                https://algs4.cs.princeton.edu/42digraph/mediumDG.txt
+ *                https://algs4.cs.princeton.edu/42digraph/largeDG.txt
  *
  *  Compute the strongly-connected components of a digraph using 
  *  Gabow's algorithm (aka Cheriyan-Mehlhorn algorithm).
@@ -46,7 +46,7 @@ package edu.princeton.cs.algs4;
  *  {@link KosarajuSharirSCC} and {@link TarjanSCC}.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -119,21 +119,27 @@ public class GabowSCC {
 
     /**
      * Are vertices {@code v} and {@code w} in the same strong component?
-     * @param v one vertex
-     * @param w the other vertex
+     * @param  v one vertex
+     * @param  w the other vertex
      * @return {@code true} if vertices {@code v} and {@code w} are in the same
-     *     strong component, and {@code false} otherwise
+     *         strong component, and {@code false} otherwise
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException unless {@code 0 <= w < V}
      */
     public boolean stronglyConnected(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
         return id[v] == id[w];
     }
 
     /**
      * Returns the component id of the strong component containing vertex {@code v}.
-     * @param v the vertex
+     * @param  v the vertex
      * @return the component id of the strong component containing vertex {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int id(int v) {
+        validateVertex(v);
         return id[v];
     }
 
@@ -147,6 +153,13 @@ public class GabowSCC {
             }
         }
         return true;
+    }
+
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = marked.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**
@@ -185,7 +198,7 @@ public class GabowSCC {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

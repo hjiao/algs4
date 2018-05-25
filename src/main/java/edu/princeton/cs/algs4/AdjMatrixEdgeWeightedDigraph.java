@@ -29,7 +29,7 @@ import java.util.NoSuchElementException;
  *  time proportional to <em>V</em>.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -38,17 +38,17 @@ import java.util.NoSuchElementException;
 public class AdjMatrixEdgeWeightedDigraph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
-    private int V;
+    private final int V;
     private int E;
     private DirectedEdge[][] adj;
     
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
      * @param V the number of vertices
-     * @throws java.lang.IllegalArgumentException if {@code V < 0}
+     * @throws IllegalArgumentException if {@code V < 0}
      */
     public AdjMatrixEdgeWeightedDigraph(int V) {
-        if (V < 0) throw new RuntimeException("Number of vertices must be nonnegative");
+        if (V < 0) throw new IllegalArgumentException("number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
         this.adj = new DirectedEdge[V][V];
@@ -58,13 +58,13 @@ public class AdjMatrixEdgeWeightedDigraph {
      * Initializes a random edge-weighted digraph with {@code V} vertices and <em>E</em> edges.
      * @param V the number of vertices
      * @param E the number of edges
-     * @throws java.lang.IllegalArgumentException if {@code V < 0}
-     * @throws java.lang.IllegalArgumentException if {@code E < 0}
+     * @throws IllegalArgumentException if {@code V < 0}
+     * @throws IllegalArgumentException if {@code E < 0}
      */
     public AdjMatrixEdgeWeightedDigraph(int V, int E) {
         this(V);
-        if (E < 0) throw new RuntimeException("Number of edges must be nonnegative");
-        if (E > V*V) throw new RuntimeException("Too many edges");
+        if (E < 0) throw new IllegalArgumentException("number of edges must be nonnegative");
+        if (E > V*V) throw new IllegalArgumentException("too many edges");
 
         // can be inefficient
         while (this.E != E) {
@@ -99,6 +99,8 @@ public class AdjMatrixEdgeWeightedDigraph {
     public void addEdge(DirectedEdge e) {
         int v = e.from();
         int w = e.to();
+        validateVertex(v);
+        validateVertex(w);
         if (adj[v][w] == null) {
             E++;
             adj[v][w] = e;
@@ -109,9 +111,10 @@ public class AdjMatrixEdgeWeightedDigraph {
      * Returns the directed edges incident from vertex {@code v}.
      * @param v the vertex
      * @return the directed edges incident from vertex {@code v} as an Iterable
-     * @throws java.lang.IndexOutOfBoundsException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> adj(int v) {
+        validateVertex(v);
         return new AdjIterator(v);
     }
 
@@ -167,6 +170,13 @@ public class AdjMatrixEdgeWeightedDigraph {
         return s.toString();
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
+
     /**
      * Unit tests the {@code AdjMatrixEdgeWeightedDigraph} data type.
      *
@@ -182,7 +192,7 @@ public class AdjMatrixEdgeWeightedDigraph {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

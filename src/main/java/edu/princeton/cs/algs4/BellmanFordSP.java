@@ -3,8 +3,8 @@
  *  Execution:    java BellmanFordSP filename.txt s
  *  Dependencies: EdgeWeightedDigraph.java DirectedEdge.java Queue.java
  *                EdgeWeightedDirectedCycle.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/tinyEWDn.txt
- *                http://algs4.cs.princeton.edu/44sp/mediumEWDnc.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/tinyEWDn.txt
+ *                https://algs4.cs.princeton.edu/44sp/mediumEWDnc.txt
  *
  *  Bellman-Ford shortest path algorithm. Computes the shortest path tree in
  *  edge-weighted digraph G from vertex s, or finds a negative cost cycle
@@ -41,12 +41,13 @@ package edu.princeton.cs.algs4;
  *  The constructor takes time proportional to <em>V</em> (<em>V</em> + <em>E</em>)
  *  in the worst case, where <em>V</em> is the number of vertices and <em>E</em>
  *  is the number of edges.
- *  Afterwards, the {@code distTo()}, {@code hasPathTo()}, and {@code hasNegativeCycle()}
- *  methods take constant time; the {@code pathTo()} and {@code negativeCycle()}
- *  method takes time proportional to the number of edges returned.
+ *  Each call to {@code distTo(int)} and {@code hasPathTo(int)},
+ *  {@code hasNegativeCycle} takes constant time;
+ *  each call to {@code pathTo(int)} and {@code negativeCycle()}
+ *  takes time proportional to length of the path returned.
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -140,13 +141,15 @@ public class BellmanFordSP {
 
     /**
      * Returns the length of a shortest path from the source vertex {@code s} to vertex {@code v}.
-     * @param v the destination vertex
+     * @param  v the destination vertex
      * @return the length of a shortest path from the source vertex {@code s} to vertex {@code v};
-     *    {@code Double.POSITIVE_INFINITY} if no such path
+     *         {@code Double.POSITIVE_INFINITY} if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle reachable
-     *    from the source vertex {@code s}
+     *         from the source vertex {@code s}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public double distTo(int v) {
+        validateVertex(v);
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         return distTo[v];
@@ -154,23 +157,27 @@ public class BellmanFordSP {
 
     /**
      * Is there a path from the source {@code s} to vertex {@code v}?
-     * @param v the destination vertex
+     * @param  v the destination vertex
      * @return {@code true} if there is a path from the source vertex
-     *    {@code s} to vertex {@code v}, and {@code false} otherwise
+     *         {@code s} to vertex {@code v}, and {@code false} otherwise
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public boolean hasPathTo(int v) {
+        validateVertex(v);
         return distTo[v] < Double.POSITIVE_INFINITY;
     }
 
     /**
      * Returns a shortest path from the source {@code s} to vertex {@code v}.
-     * @param v the destination vertex
+     * @param  v the destination vertex
      * @return a shortest path from the source {@code s} to vertex {@code v}
-     *    as an iterable of edges, and {@code null} if no such path
+     *         as an iterable of edges, and {@code null} if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle reachable
-     *    from the source vertex {@code s}
+     *         from the source vertex {@code s}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> pathTo(int v) {
+        validateVertex(v);
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPathTo(v)) return null;
@@ -245,6 +252,13 @@ public class BellmanFordSP {
         return true;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = distTo.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
     /**
      * Unit tests the {@code BellmanFordSP} data type.
      *
@@ -284,7 +298,7 @@ public class BellmanFordSP {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

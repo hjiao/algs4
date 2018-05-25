@@ -20,7 +20,7 @@ import java.awt.Color;
  *  This data type is mutable because the position and velocity change.
  *  <p>
  *  For additional documentation, 
- *  see <a href="http://algs4.cs.princeton.edu/61event">Section 6.1</a> of 
+ *  see <a href="https://algs4.cs.princeton.edu/61event">Section 6.1</a> of 
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -29,12 +29,12 @@ import java.awt.Color;
 public class Particle {
     private static final double INFINITY = Double.POSITIVE_INFINITY;
 
-    private double rx, ry;    // position
-    private double vx, vy;    // velocity
-    private double radius;    // radius
-    private double mass;      // mass
-    private Color color;      // color
-    private int count;        // number of collisions so far
+    private double rx, ry;        // position
+    private double vx, vy;        // velocity
+    private int count;            // number of collisions so far
+    private final double radius;  // radius
+    private final double mass;    // mass
+    private final Color color;    // color
 
 
     /**
@@ -228,7 +228,7 @@ public class Particle {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -40,7 +40,7 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This is a bare-bones implementation that uses Gaussian elimination
  *  with partial pivoting.
- *  See <a href = "http://algs4.cs.princeton.edu/99scientific/GaussianEliminationLite.java.html">GaussianEliminationLite.java</a>
+ *  See <a href = "https://algs4.cs.princeton.edu/99scientific/GaussianEliminationLite.java.html">GaussianEliminationLite.java</a>
  *  for a stripped-down version that assumes the matrix <em>A</em> is square
  *  and nonsingular. See {@link GaussJordanElimination} for an alternate
  *  implementation that uses Gauss-Jordan elimination.
@@ -48,7 +48,7 @@ package edu.princeton.cs.algs4;
  *  see <a href = "http://math.nist.gov/javanumerics/jama/">JAMA</a>.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/99scientific">Section 9.9</a>
+ *  <a href="https://algs4.cs.princeton.edu/99scientific">Section 9.9</a>
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -355,7 +355,7 @@ public class GaussianElimination {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

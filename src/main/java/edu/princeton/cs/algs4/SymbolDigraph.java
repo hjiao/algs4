@@ -2,7 +2,7 @@
  *  Compilation:  javac SymbolDigraph.java
  *  Execution:    java SymbolDigraph
  *  Dependencies: ST.java Digraph.java In.java
- *  Data files:   http://algs4.cs.princeton.edu/42digraph/routes.txt
+ *  Data files:   https://algs4.cs.princeton.edu/42digraph/routes.txt
  *  
  *  %  java SymbolDigraph routes.txt " "
  *  JFK
@@ -34,7 +34,7 @@ package edu.princeton.cs.algs4;
  *  proportional to log <em>V</em>, where <em>V</em> is the number of vertices.
  *  The <em>nameOf</em> operation takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -67,7 +67,7 @@ public class SymbolDigraph {
             }
         }
 
-        // inverted index to get string keys in an aray
+        // inverted index to get string keys in an array
         keys = new String[st.size()];
         for (String name : st.keys()) {
             keys[st.get(name)] = name;
@@ -118,21 +118,25 @@ public class SymbolDigraph {
 
     /**
      * Returns the name of the vertex associated with the integer {@code v}.
-     * @param v the integer corresponding to a vertex (between 0 and <em>V</em> - 1) 
+     * @param  v the integer corresponding to a vertex (between 0 and <em>V</em> - 1) 
      * @return the name of the vertex associated with the integer {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      * @deprecated Replaced by {@link #nameOf(int)}.
      */
     @Deprecated
     public String name(int v) {
+        validateVertex(v);
         return keys[v];
     }
 
     /**
      * Returns the name of the vertex associated with the integer {@code v}.
-     * @param v the integer corresponding to a vertex (between 0 and <em>V</em> - 1) 
+     * @param  v the integer corresponding to a vertex (between 0 and <em>V</em> - 1) 
      * @return the name of the vertex associated with the integer {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public String nameOf(int v) {
+        validateVertex(v);
         return keys[v];
     }
 
@@ -158,6 +162,13 @@ public class SymbolDigraph {
         return graph;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = graph.V();
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
     /**
      * Unit tests the {@code SymbolDigraph} data type.
      *
@@ -178,7 +189,7 @@ public class SymbolDigraph {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

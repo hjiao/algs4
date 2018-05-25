@@ -26,7 +26,7 @@ package edu.princeton.cs.algs4;
  *  {@link DirectedEulerianCycle} and {@link DirectedEulerianPath}.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  * 
  * @author Robert Sedgewick
@@ -175,7 +175,7 @@ public class EulerianPath {
     //    - degree(v) is even for every vertex, except for possibly two
     //    - the graph is connected (ignoring isolated vertices)
     // This method is solely for unit testing.
-    private static boolean hasEulerianPath(Graph G) {
+    private static boolean satisfiesNecessaryAndSufficientConditions(Graph G) {
         if (G.E() == 0) return true;
 
         // Condition 1: degree(v) is even except for possibly two
@@ -202,7 +202,7 @@ public class EulerianPath {
         if (hasEulerianPath() == (path() == null)) return false;
 
         // hashEulerianPath() returns correct value
-        if (hasEulerianPath() != hasEulerianPath(G)) return false;
+        if (hasEulerianPath() != satisfiesNecessaryAndSufficientConditions(G)) return false;
 
         // nothing else to check if no Eulerian path
         if (path == null) return true;
@@ -283,7 +283,7 @@ public class EulerianPath {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

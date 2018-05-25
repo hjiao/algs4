@@ -2,9 +2,9 @@
  *  Compilation:  javac CC.java
  *  Execution:    java CC filename.txt
  *  Dependencies: Graph.java StdOut.java Queue.java
- *  Data files:   http://algs4.cs.princeton.edu/41graph/tinyG.txt
- *                http://algs4.cs.princeton.edu/41graph/mediumG.txt
- *                http://algs4.cs.princeton.edu/41graph/largeG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/41graph/tinyG.txt
+ *                https://algs4.cs.princeton.edu/41graph/mediumG.txt
+ *                https://algs4.cs.princeton.edu/41graph/largeG.txt
  *
  *  Compute connected components using depth first search.
  *  Runs in O(E + V) time.
@@ -53,7 +53,7 @@ package edu.princeton.cs.algs4;
  *  Afterwards, the <em>id</em>, <em>count</em>, <em>connected</em>,
  *  and <em>size</em> operations take constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -82,19 +82,6 @@ public class CC {
         }
     }
 
-    // depth-first search
-    private void dfs(Graph G, int v) {
-        marked[v] = true;
-        id[v] = count;
-        size[count]++;
-        for (int w : G.adj(v)) {
-            if (!marked[w]) {
-                dfs(G, w);
-            }
-        }
-    }
-
-
     /**
      * Computes the connected components of the edge-weighted graph {@code G}.
      *
@@ -112,7 +99,19 @@ public class CC {
         }
     }
 
-    // depth-first search
+    // depth-first search for a Graph
+    private void dfs(Graph G, int v) {
+        marked[v] = true;
+        id[v] = count;
+        size[count]++;
+        for (int w : G.adj(v)) {
+            if (!marked[w]) {
+                dfs(G, w);
+            }
+        }
+    }
+
+    // depth-first search for an EdgeWeightedGraph
     private void dfs(EdgeWeightedGraph G, int v) {
         marked[v] = true;
         id[v] = count;
@@ -131,8 +130,10 @@ public class CC {
      *
      * @param  v the vertex
      * @return the component id of the connected component containing vertex {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int id(int v) {
+        validateVertex(v);
         return id[v];
     }
 
@@ -141,8 +142,10 @@ public class CC {
      *
      * @param  v the vertex
      * @return the number of vertices in the connected component containing vertex {@code v}
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int size(int v) {
+        validateVertex(v);
         return size[id[v]];
     }
 
@@ -163,8 +166,12 @@ public class CC {
      * @param  w the other vertex
      * @return {@code true} if vertices {@code v} and {@code w} are in the same
      *         connected component; {@code false} otherwise
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException unless {@code 0 <= w < V}
      */
     public boolean connected(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
         return id(v) == id(w);
     }
 
@@ -176,11 +183,22 @@ public class CC {
      * @param  w the other vertex
      * @return {@code true} if vertices {@code v} and {@code w} are in the same
      *         connected component; {@code false} otherwise
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException unless {@code 0 <= w < V}
      * @deprecated Replaced by {@link #connected(int, int)}.
      */
     @Deprecated
     public boolean areConnected(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
         return id(v) == id(w);
+    }
+
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = marked.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
     /**
@@ -217,7 +235,7 @@ public class CC {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

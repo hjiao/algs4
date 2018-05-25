@@ -2,8 +2,8 @@
  *  Compilation:  javac Knuth.java
  *  Execution:    java Knuth < list.txt
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/11model/cards.txt
- *                http://algs4.cs.princeton.edu/11model/cardsUnicode.txt
+ *  Data files:   https://algs4.cs.princeton.edu/11model/cards.txt
+ *                https://algs4.cs.princeton.edu/11model/cardsUnicode.txt
  *  
  *  Reads in a list of strings and prints them in random order.
  *  The Knuth (or Fisher-Yates) shuffling algorithm guarantees
@@ -54,7 +54,7 @@ package edu.princeton.cs.algs4;
  *  uniformly distributed numbers between 0 and 1.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/11model">Section 1.1</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *  See {@link StdRandom} for versions that shuffle arrays and
  *  subarrays of objects, doubles, and ints.
@@ -74,6 +74,23 @@ public class Knuth {
      * @param a the array to be shuffled
      */
     public static void shuffle(Object[] a) {
+        int n = a.length;
+        for (int i = 0; i < n; i++) {
+            // choose index uniformly in [0, i]
+            int r = (int) (Math.random() * (i + 1));
+            Object swap = a[r];
+            a[r] = a[i];
+            a[i] = swap;
+        }
+    }
+
+    /**
+     * Rearranges an array of objects in uniformly random order
+     * (under the assumption that {@code Math.random()} generates independent
+     * and uniformly distributed numbers between 0 and 1).
+     * @param a the array to be shuffled
+     */
+    public static void shuffleAlternate(Object[] a) {
         int n = a.length;
         for (int i = 0; i < n; i++) {
             // choose index uniformly in [i, n-1]
@@ -105,7 +122,7 @@ public class Knuth {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

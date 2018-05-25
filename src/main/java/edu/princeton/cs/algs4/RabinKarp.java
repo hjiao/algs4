@@ -43,7 +43,7 @@ import java.util.Random;
  *  This implementation uses the Rabin-Karp algorithm.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class RabinKarp {
@@ -61,6 +61,8 @@ public class RabinKarp {
      * @param R the alphabet size
      */
     public RabinKarp(char[] pattern, int R) {
+        this.pat = String.valueOf(pattern);
+        this.R = R;        
         throw new UnsupportedOperationException("Operation not supported yet");
     }
 
@@ -99,9 +101,9 @@ public class RabinKarp {
     }
 
     // Monte Carlo version: always return true
-    private boolean check(int i) {
-        return true;
-    }
+    // private boolean check(int i) {
+    //    return true;
+    //}
  
     /**
      * Returns the index of the first occurrrence of the pattern string
@@ -169,7 +171,7 @@ public class RabinKarp {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

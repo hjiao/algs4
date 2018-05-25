@@ -5,12 +5,13 @@
  *
  *
  *  % java DoublingRatio
- *      250   0.0    2.7
- *      500   0.0    4.8
- *     1000   0.1    6.9
- *     2000   0.6    7.7
- *     4000   4.5    8.0
- *     8000  35.7    8.0
+ *      250     0.0   2.7
+ *      500     0.0   4.8
+ *     1000     0.1   6.9
+ *     2000     0.6   7.7
+ *     4000     4.5   8.0
+ *     8000    35.7   8.0
+ *     4000     3.9   6.6
  *  ...
  *
  ******************************************************************************/
@@ -21,7 +22,7 @@ package edu.princeton.cs.algs4;
  *  The {@code DoublingRatio} class provides a client for measuring
  *  the running time of a method using a doubling ratio test.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -61,7 +62,7 @@ public class DoublingRatio {
         double prev = timeTrial(125);
         for (int n = 250; true; n += n) {
             double time = timeTrial(n);
-            StdOut.printf("%6d %7.1f %5.1f\n", n, time, time/prev);
+            StdOut.printf("%7d %7.1f %5.1f\n", n, time, time/prev);
             prev = time;
         } 
     } 
@@ -69,7 +70,7 @@ public class DoublingRatio {
 
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

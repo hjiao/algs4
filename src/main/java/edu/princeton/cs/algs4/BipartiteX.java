@@ -31,7 +31,7 @@ package edu.princeton.cs.algs4;
  *  See {@link Bipartite} for a recursive version that uses depth-first search.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
+ *  see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -43,7 +43,7 @@ public class BipartiteX {
 
     private boolean isBipartite;   // is the graph bipartite?
     private boolean[] color;       // color[v] gives vertices on one side of bipartition
-    private boolean[] marked;      // marked[v] = true if v has been visited in DFS
+    private boolean[] marked;      // marked[v] = true iff v has been visited in DFS
     private int[] edgeTo;          // edgeTo[v] = last edge on path to v
     private Queue<Integer> cycle;  // odd-length cycle
 
@@ -129,6 +129,7 @@ public class BipartiteX {
      *         is not bipartite
      */
     public boolean color(int v) {
+        validateVertex(v);
         if (!isBipartite)
             throw new UnsupportedOperationException("Graph is not bipartite");
         return color[v];
@@ -176,6 +177,13 @@ public class BipartiteX {
         return true;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = marked.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
     /**
      * Unit tests the {@code BipartiteX} data type.
      *
@@ -219,7 +227,7 @@ public class BipartiteX {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

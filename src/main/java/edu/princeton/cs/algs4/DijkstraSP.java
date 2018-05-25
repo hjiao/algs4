@@ -2,9 +2,9 @@
  *  Compilation:  javac DijkstraSP.java
  *  Execution:    java DijkstraSP input.txt s
  *  Dependencies: EdgeWeightedDigraph.java IndexMinPQ.java Stack.java DirectedEdge.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/tinyEWD.txt
- *                http://algs4.cs.princeton.edu/44sp/mediumEWD.txt
- *                http://algs4.cs.princeton.edu/44sp/largeEWD.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/tinyEWD.txt
+ *                https://algs4.cs.princeton.edu/44sp/mediumEWD.txt
+ *                https://algs4.cs.princeton.edu/44sp/largeEWD.txt
  *
  *  Dijkstra's algorithm. Computes the shortest path tree.
  *  Assumes all weights are nonnegative.
@@ -40,12 +40,12 @@ package edu.princeton.cs.algs4;
  *  This implementation uses Dijkstra's algorithm with a binary heap.
  *  The constructor takes time proportional to <em>E</em> log <em>V</em>,
  *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code distTo()} and {@code hasPathTo()} methods take
- *  constant time and the {@code pathTo()} method takes time proportional to the
- *  number of edges in the shortest path returned.
+ *  Each call to {@code distTo(int)} and {@code hasPathTo(int)} takes constant time;
+ *  each call to {@code pathTo(int)} takes time proportional to the number of
+ *  edges in the shortest path returned.
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -73,6 +73,9 @@ public class DijkstraSP {
 
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
+
+        validateVertex(s);
+
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
         distTo[s] = 0.0;
@@ -106,8 +109,10 @@ public class DijkstraSP {
      * @param  v the destination vertex
      * @return the length of a shortest path from the source vertex {@code s} to vertex {@code v};
      *         {@code Double.POSITIVE_INFINITY} if no such path
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public double distTo(int v) {
+        validateVertex(v);
         return distTo[v];
     }
 
@@ -117,8 +122,10 @@ public class DijkstraSP {
      * @param  v the destination vertex
      * @return {@code true} if there is a path from the source vertex
      *         {@code s} to vertex {@code v}; {@code false} otherwise
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public boolean hasPathTo(int v) {
+        validateVertex(v);
         return distTo[v] < Double.POSITIVE_INFINITY;
     }
 
@@ -128,8 +135,10 @@ public class DijkstraSP {
      * @param  v the destination vertex
      * @return a shortest path from the source vertex {@code s} to vertex {@code v}
      *         as an iterable of edges, and {@code null} if no such path
+     * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> pathTo(int v) {
+        validateVertex(v);
         if (!hasPathTo(v)) return null;
         Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
@@ -190,6 +199,12 @@ public class DijkstraSP {
         return true;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = distTo.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
 
     /**
      * Unit tests the {@code DijkstraSP} data type.
@@ -223,7 +238,7 @@ public class DijkstraSP {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

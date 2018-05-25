@@ -2,13 +2,12 @@
  *  Compilation:  javac Bipartite.java
  *  Execution:    java  Bipartite V E F
  *  Dependencies: Graph.java 
- *  Data files:   http://algs4.cs.princeton.edu/41graph/tinyG.txt
- *                http://algs4.cs.princeton.edu/41graph/mediumG.txt
- *                http://algs4.cs.princeton.edu/41graph/largeG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/41graph/tinyG.txt
+ *                https://algs4.cs.princeton.edu/41graph/mediumG.txt
+ *                https://algs4.cs.princeton.edu/41graph/largeG.txt
  *
  *  Given a graph, find either (i) a bipartition or (ii) an odd-length cycle.
  *  Runs in O(E + V) time.
- *
  *
  ******************************************************************************/
 
@@ -34,7 +33,7 @@ package edu.princeton.cs.algs4;
  *  See {@link BipartiteX} for a nonrecursive version that uses breadth-first
  *  search.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -43,7 +42,7 @@ package edu.princeton.cs.algs4;
 public class Bipartite {
     private boolean isBipartite;   // is the graph bipartite?
     private boolean[] color;       // color[v] gives vertices on one side of bipartition
-    private boolean[] marked;      // marked[v] = true if v has been visited in DFS
+    private boolean[] marked;      // marked[v] = true iff v has been visited in DFS
     private int[] edgeTo;          // edgeTo[v] = last edge on path to v
     private Stack<Integer> cycle;  // odd-length cycle
 
@@ -115,8 +114,9 @@ public class Bipartite {
      *         is not bipartite
      */
     public boolean color(int v) {
+        validateVertex(v);
         if (!isBipartite)
-            throw new UnsupportedOperationException("Graph is not bipartite");
+            throw new UnsupportedOperationException("graph is not bipartite");
         return color[v];
     }
 
@@ -162,6 +162,13 @@ public class Bipartite {
         return true;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        int V = marked.length;
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
     /**
      * Unit tests the {@code Bipartite} data type.
      *
@@ -205,7 +212,7 @@ public class Bipartite {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

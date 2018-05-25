@@ -18,12 +18,12 @@ import java.util.NoSuchElementException;
  *  items in arbitrary order.
  *  <p>
  *  This implementation uses a resizing array.
- *  See {@link LinkedBag} for a version that uses a singly-linked list.
+ *  See {@link LinkedBag} for a version that uses a singly linked list.
  *  The <em>add</em> operation takes constant amortized time; the
  *  <em>isEmpty</em>, and <em>size</em> operations
  *  take constant time. Iteration takes time proportional to the number of items.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -116,7 +116,7 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

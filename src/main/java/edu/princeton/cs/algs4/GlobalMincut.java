@@ -4,8 +4,8 @@
  *  Dependencies: EdgeWeightedGraph.java Edge.java UF.java 
  *                IndexMaxPQ.java FlowNetwork.java FlowEdge.java 
  *                FordFulkerson.java In.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/43mst/tinyEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/mediumEWG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/43mst/tinyEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/mediumEWG.txt
  *
  *  Computes a minimum cut using Stoer-Wagner's algorithm.
  *
@@ -67,6 +67,9 @@ public class GlobalMincut {
     // or false if v is on the second subset
     private boolean[] cut;
 
+    // number of vertices
+    private int V;
+
     /**
      * This helper class represents the <em>cut-of-the-phase</em>. The
      * cut-of-the-phase is a <em>minimum s-t-cut</em> in the current graph,
@@ -93,6 +96,7 @@ public class GlobalMincut {
      *             is less than {@code 2} or if anny edge weight is negative
      */
     public GlobalMincut(EdgeWeightedGraph G) {
+        V = G.V();
         validate(G);
         minCut(G, 0);
         assert check(G);
@@ -126,15 +130,15 @@ public class GlobalMincut {
      * vertices of the minimum cut; or {@code false} if the vertex {@code v} is
      * on the second subset.
      * 
+     * @param v the vertex to check
      * @return {@code true} if the vertex {@code v} is on the first subset of
      *         vertices of the minimum cut; or {@code false} if the vertex
      *         {@code v} is on the second subset.
-     * @throws IndexOutOfBoundsException unless vertex {@code v} is between
+     * @throws IllegalArgumentException unless vertex {@code v} is between
      *             {@code 0} and {@code (G.V() - 1)}
      */
     public boolean cut(int v) {
-        int V = cut.length;
-        if (v < 0 || v >= V) throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V - 1));
+        validateVertex(v);
         return cut[v];
     }
 
@@ -268,6 +272,13 @@ public class GlobalMincut {
         return true;
     }
 
+    // throw an IllegalArgumentException unless {@code 0 <= v < V}
+    private void validateVertex(int v) {
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
+
     /**
      * Unit tests the {@code GlobalMincut} data type.
      * 
@@ -287,7 +298,7 @@ public class GlobalMincut {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

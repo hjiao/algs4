@@ -40,7 +40,7 @@ package edu.princeton.cs.algs4;
  *  Construction takes constant time.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/62btree">Section 6.2</a> of
+ *  <a href="https://algs4.cs.princeton.edu/62btree">Section 6.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class BTree<Key extends Comparable<Key>, Value>  {
@@ -67,7 +67,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
     // external nodes: only use key and value
     private static class Entry {
         private Comparable key;
-        private Object val;
+        private final Object val;
         private Node next;     // helper field to iterate over array entries
         public Entry(Comparable key, Object val, Node next) {
             this.key  = key;
@@ -115,10 +115,10 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @param  key the key
      * @return the value associated with the given key if the key is in the symbol table
      *         and {@code null} if the key is not in the symbol table
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new NullPointerException("key must not be null");
+        if (key == null) throw new IllegalArgumentException("argument to get() is null");
         return search(root, key, height);
     }
 
@@ -150,10 +150,10 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      *
      * @param  key the key
      * @param  val the value
-     * @throws NullPointerException if {@code key} is {@code null}
+     * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new NullPointerException("key must not be null");
+        if (key == null) throw new IllegalArgumentException("argument key to put() is null");
         Node u = insert(root, key, val, height); 
         n++;
         if (u == null) return;
@@ -289,7 +289,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *
